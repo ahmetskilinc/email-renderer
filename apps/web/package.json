@@ -9,11 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@base-ui/react": "^1.1.0",
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-modules-commonjs": "^7.26.0",
     "@babel/preset-react": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
+    "@base-ui/react": "^1.1.0",
+    "@databuddy/sdk": "^2.3.29",
     "@email-renderer/analyser": "workspace:*",
     "@email-renderer/core": "workspace:*",
     "@email-renderer/types": "workspace:*",
