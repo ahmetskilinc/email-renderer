@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
   },
+  reactCompiler: true,
 };
 
 export default nextConfig;
