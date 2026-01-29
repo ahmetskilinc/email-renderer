@@ -125,6 +125,7 @@ export async function renderReactEmail(reactEmailCode: string, clients: ClientId
   }
 
   const data: RenderResponse = await response.json();
+
   return {
     ...data,
     convertedHtml: html,
