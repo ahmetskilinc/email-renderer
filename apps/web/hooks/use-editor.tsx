@@ -28,7 +28,6 @@ type EditorContextValue = {
   showAnalysis: boolean;
   setShowAnalysis: (show: boolean) => void;
   rendererStatus: RendererStatus;
-  showReactEmail: boolean;
   totalWarnings: number;
   totalErrors: number;
   handleRender: () => void;
@@ -38,8 +37,6 @@ type EditorContextValue = {
 const EditorContext = createContext<EditorContextValue | null>(null);
 
 export function EditorProvider({ children }: { children: ReactNode }) {
-  const searchParams = useSearchParams();
-  const showReactEmail = searchParams.get('reactEmail') === 'true';
   const [editorMode, setEditorMode] = useState<EditorMode>('html');
   const [html, setHtml] = useState(DEFAULT_EMAIL);
   const [reactEmailCode, setReactEmailCode] = useState(DEFAULT_REACT_EMAIL);
@@ -48,8 +45,6 @@ export function EditorProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const { status: rendererStatus, retry: retryConnection } = useCheckRenderer();
-
-  const effectiveEditorMode = !showReactEmail && editorMode === 'react-email' ? 'html' : editorMode;
 
   const totalWarnings = analyses.reduce(
     (sum, a) => sum + a.warnings.filter((w) => w.severity === 'warning').length,
@@ -66,7 +61,7 @@ export function EditorProvider({ children }: { children: ReactNode }) {
     try {
       let renderData;
 
-      if (effectiveEditorMode === 'react-email') {
+      if (editorMode === 'react-email') {
         renderData = await renderReactEmail(reactEmailCode, [...ALL_CLIENTS]);
       } else {
         renderData = await renderHtml(html, [...ALL_CLIENTS]);
@@ -74,8 +69,7 @@ export function EditorProvider({ children }: { children: ReactNode }) {
 
       setResults(renderData.results);
 
-      const htmlToAnalyse =
-        effectiveEditorMode === 'react-email' ? renderData.convertedHtml || html : html;
+      const htmlToAnalyse = editorMode === 'react-email' ? renderData.convertedHtml || html : html;
 
       try {
         const analyseData = await analyseEmailAction(htmlToAnalyse, renderData.results);
@@ -94,7 +88,7 @@ export function EditorProvider({ children }: { children: ReactNode }) {
   return (
     <EditorContext.Provider
       value={{
-        editorMode: effectiveEditorMode,
+        editorMode,
         setEditorMode,
         html,
         setHtml,
@@ -106,7 +100,6 @@ export function EditorProvider({ children }: { children: ReactNode }) {
         showAnalysis,
         setShowAnalysis,
         rendererStatus,
-        showReactEmail,
         totalWarnings,
         totalErrors,
         handleRender,

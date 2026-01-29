@@ -21,7 +21,6 @@ export function EditorPanel() {
     handleRender,
     isLoading,
     rendererStatus,
-    showReactEmail,
   } = useEditor();
 
   const currentValue = editorMode === 'html' ? html : reactEmailCode;
@@ -35,20 +34,14 @@ export function EditorPanel() {
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
           </svg>
           <span className="text-sm font-medium text-zinc-300">HTML</span>
-          {showReactEmail && (
-            <>
-              <Switch
-                checked={editorMode === 'react-email'}
-                onCheckedChange={(checked) => {
-                  if (showReactEmail) {
-                    setEditorMode(checked ? 'react-email' : 'html');
-                  }
-                }}
-                className="data-checked:bg-indigo-500 data-unchecked:bg-orange-500/60 data-checked:*:data-[slot=switch-thumb]:bg-indigo-100 data-unchecked:*:data-[slot=switch-thumb]:bg-orange-200 dark:data-checked:bg-indigo-500 dark:data-unchecked:bg-orange-500/40 data-checked:*:data-[slot=switch-thumb]:dark:bg-indigo-200 data-unchecked:*:data-[slot=switch-thumb]:dark:bg-orange-300"
-              />
-              <span className="text-sm font-medium text-zinc-300">React Email</span>
-            </>
-          )}
+          <Switch
+            checked={editorMode === 'react-email'}
+            onCheckedChange={(checked) => {
+              setEditorMode(checked ? 'react-email' : 'html');
+            }}
+            className="data-checked:bg-indigo-500 data-unchecked:bg-orange-500/60 data-checked:*:data-[slot=switch-thumb]:bg-indigo-100 data-unchecked:*:data-[slot=switch-thumb]:bg-orange-200 dark:data-checked:bg-indigo-500 dark:data-unchecked:bg-orange-500/40 data-checked:*:data-[slot=switch-thumb]:dark:bg-indigo-200 data-unchecked:*:data-[slot=switch-thumb]:dark:bg-orange-300"
+          />
+          <span className="text-sm font-medium text-zinc-300">React Email</span>
         </div>
         <Button
           onClick={handleRender}
