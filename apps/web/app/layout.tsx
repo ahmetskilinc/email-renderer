@@ -1,4 +1,3 @@
-import { EditorProvider } from '@/hooks/use-editor';
 import { Databuddy } from '@databuddy/sdk/react';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
@@ -18,11 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-zinc-800 antialiased">
-        <EditorProvider>
-          <Suspense>{children}</Suspense>
-          <Databuddy clientId="b7fc05bc-70ca-4c88-9a37-085b81593113" />
-          <Toaster position="top-right" />
-        </EditorProvider>
+        <Suspense>{children}</Suspense>
+        <Databuddy clientId="b7fc05bc-70ca-4c88-9a37-085b81593113" />
+        <Toaster position="top-right" />
       </body>
     </html>
   );
