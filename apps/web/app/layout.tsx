@@ -1,5 +1,5 @@
 import { Databuddy } from '@databuddy/sdk/react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
 import { Suspense } from 'react';
 import './globals.css';
@@ -7,6 +7,12 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Email Renderer',
   description: 'HTML or React Email renderer',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

@@ -6,7 +6,7 @@ import { Header } from '@/components/header';
 export default function Page() {
   return (
     <EditorProvider>
-      <div className="flex h-screen flex-col bg-zinc-900">
+      <div className="flex h-dvh flex-col bg-zinc-900">
         <Header />
         <DesktopLayout />
         <MobileLayout />
